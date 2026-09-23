@@ -149,15 +149,19 @@ main .depth-clip,main .mosaic,.speech-photo .depth-clip,.specialty-photo .depth-
   .js :is(.speech-close .speech-wrap,.specialty-close>.specialty-wrap,.assessment-close .assessment-wrap,.contact-next .contact-wrap,.adult-close>.reveal).in::after{clip-path:inset(0 0 0 0)}
 }
 
-/* ---- 10. Value icons: line icons in the brand colours (replace the clipart) ---- */
-.value-icon{display:grid;place-items:center;width:60px;height:60px;flex:0 0 auto;border-radius:50%}
-.value-icon svg{width:28px;height:28px}
-.home-value:nth-child(-n+2) .value-icon{width:76px;height:76px}
-.home-value:nth-child(-n+2) .value-icon svg{width:36px;height:36px}
-.value-icon-green{background:rgba(141,198,63,.18);color:var(--green-text)}
-.value-icon-blue{background:rgba(0,174,239,.14);color:var(--blue-text)}
-.value-icon-red{background:rgba(237,28,36,.1);color:#C4161C}
-.value-icon-orange{background:rgba(247,148,29,.16);color:#B8650A}
+/* ---- 10. Value icons: solid brand circles with white line icons, the same language as the therapy card icons (user choice B, 23/09) ---- */
+.value-icon{display:grid;place-items:center;width:64px;height:64px;flex:0 0 auto;border-radius:50%;color:#fff;box-shadow:0 10px 22px -14px rgba(48,49,51,.55)}
+.value-icon svg{width:30px;height:30px}
+.home-value:nth-child(-n+2) .value-icon{width:80px;height:80px}
+.home-value:nth-child(-n+2) .value-icon svg{width:38px;height:38px}
+.value-icon-green{background:#8DC63F}
+.value-icon-blue{background:#00AEEF}
+.value-icon-red{background:#ED1C24}
+.value-icon-orange{background:#F7941D}
+@media (prefers-reduced-motion:no-preference){
+  @keyframes valuePop{0%{transform:scale(1)}40%{transform:scale(1.14) rotate(-6deg)}100%{transform:scale(1)}}
+  .home-value:hover .value-icon{animation:valuePop .5s cubic-bezier(.3,1.6,.5,1)}
+}
 
 /* ---- 11. Footer: one entry per centre ---- */
 .footer-centres{list-style:none;margin:0;padding:0;display:grid;gap:12px}
@@ -178,8 +182,8 @@ main .depth-clip,main .mosaic,.speech-photo .depth-clip,.specialty-photo .depth-
   .home-value,.home-value:nth-child(-n+2){grid-column:auto;flex-direction:column;align-items:flex-start;padding:18px 16px;gap:12px;border-radius:20px}
   .home-value .preview-value-copy p{display:none}
   .preview-value-copy h3,.home-value:nth-child(-n+2) h3{font-size:15px;line-height:1.35;margin:0}
-  .value-icon,.home-value:nth-child(-n+2) .value-icon{width:46px;height:46px}
-  .value-icon svg,.home-value:nth-child(-n+2) .value-icon svg{width:24px;height:24px}
+  .value-icon,.home-value:nth-child(-n+2) .value-icon{width:50px;height:50px}
+  .value-icon svg,.home-value:nth-child(-n+2) .value-icon svg{width:25px;height:25px}
   /* homepage therapies: one swipeable row */
   .home-refined .svc-intro{text-align:left}
   .svc-swipe-hint{display:flex;align-items:center;gap:8px;margin:18px 0 0;font-size:13px;font-weight:600;color:#58595B}
