@@ -217,3 +217,19 @@ details.phones>summary:focus-visible,.callbar-contact:focus-visible,.topbar-cent
   .specialty-refined .specialty-process-layout{grid-template-columns:1fr;gap:34px}.specialty-signs-list li{grid-template-columns:23px minmax(0,1fr);gap:17px;padding-block:23px}.specialty-signs-list h3{font-size:18px}}
 .specialty-focus-note{font-size:15px;margin:-10px 0 28px;max-width:540px}
 .specialty-refined .specialty-process-layout>h2{align-self:start;position:sticky;top:120px}
+
+/* ---- 20. Contrast (WCAG AA 4.5:1 for normal text). Backgrounds and the brand green/blue fills stay the same; only text colours get darker.
+   Button text on green 3.4 -> 7.2; phone numbers 2.5 -> 5.6; small green/blue labels about 2 -> 4.7 or more; addresses in the phone list 3.8 -> 5.3. ---- */
+a.bg-green,.preview-button,.home-question .preview-button{color:#26282A}
+.kicker.text-green{color:#4F7A1F}
+.kicker.text-blue{color:#006E9C}
+.phones-list span{color:#006E9C}
+.phones-list small{opacity:1;color:#6B6C6E}
+details.phones>summary:hover,details.phones[open]>summary{border-color:#006E9C;color:#006E9C}
+.topbar-centres:hover span,.topbar-mail:hover{color:#006E9C}
+details.phones>summary:focus-visible,.callbar-contact:focus-visible,.topbar-centres:focus-visible{outline-color:#006E9C}
+.tl-place{color:#4A4B4D}
+
+/* ---- 21. Homepage "about": the years counter is part of the heading ("29 χρόνια δίπλα στο παιδί και στην οικογένεια."), no ellipsis ---- */
+.home-years{display:block}
+.home-years [data-count]{display:inline-block;min-width:1.2em}
