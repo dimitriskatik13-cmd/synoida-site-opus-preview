@@ -213,6 +213,11 @@ main .depth-clip,main .mosaic,.speech-photo .depth-clip,.specialty-photo .depth-
   .therapies-guide a{white-space:nowrap}
 }
 
+/* the pinned therapies rail on desktop: cards fade out at the screen edges instead of being cut */
+@media (min-width:1024px) and (prefers-reduced-motion:no-preference){
+  .js .home-refined .svc-stage{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 56px,#000 calc(100% - 56px),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 56px,#000 calc(100% - 56px),transparent 100%)}
+}
+
 /* ---- 13. About page ---- */
 @media (min-width:701px){
   .about-manifesto-layout>div:first-child{position:sticky;top:120px;align-self:start}
