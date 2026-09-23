@@ -285,3 +285,79 @@ main .depth-clip,main .mosaic,.speech-photo .depth-clip,.specialty-photo .depth-
   .home-value{transition:transform .25s var(--ease),box-shadow .25s}
   .home-value:hover{transform:translateY(-3px);box-shadow:0 18px 36px -24px rgba(88,89,91,.45)}
 }
+
+/* ---- 16. FAQ, site-wide: answers open smoothly, the + turns into × ---- */
+:root{interpolate-size:allow-keywords}
+:is(.speech-faq,.specialty-faq,.assessment-faq) details[open] summary::after,:is(.speech-faq,.specialty-faq,.assessment-faq) summary::after{content:"+";transition:transform .35s var(--ease),color .2s}
+:is(.speech-faq,.specialty-faq,.assessment-faq) details[open] summary::after{transform:rotate(45deg);color:var(--accent,#8DC63F)}
+@media (prefers-reduced-motion:no-preference){
+  :is(.speech-faq,.specialty-faq,.assessment-faq) details::details-content{block-size:0;overflow:hidden;transition:block-size .45s var(--ease),content-visibility .45s allow-discrete}
+  :is(.speech-faq,.specialty-faq,.assessment-faq) details[open]::details-content{block-size:auto}
+}
+
+/* ---- 17. Therapy pages: depth and guidance (assets/therapy-motion.js adds the elements and the classes) ---- */
+/* 1. hero in layers: four brand balls between the photo and the words */
+.tm-orbs{position:absolute;inset:0;pointer-events:none;z-index:1}
+.tm-hero-copy{position:relative;z-index:2}
+.tm-orb{position:absolute;display:block;translate:calc(var(--mx,0) * var(--pd) * 22px) calc(var(--hp,0) * var(--pd) * -260px + var(--my,0) * var(--pd) * 16px)}
+.tm-orb b{display:block;width:100%;height:100%;border-radius:50%;background:radial-gradient(circle at 34% 28%,rgba(255,255,255,.5),rgba(255,255,255,0) 52%),var(--c);box-shadow:0 22px 44px -18px rgba(0,0,0,.45)}
+.tm-orb.o1{--pd:.34;width:clamp(120px,13vw,200px);aspect-ratio:1;right:10%;top:20%}
+.tm-orb.o2{--pd:.2;width:clamp(48px,4.6vw,70px);aspect-ratio:1;right:27%;top:15%}
+.tm-orb.o3{--pd:.5;width:clamp(70px,7vw,104px);aspect-ratio:1;right:5%;bottom:12%}
+.tm-orb.o4{--pd:.12;width:clamp(26px,2.4vw,36px);aspect-ratio:1;right:24%;bottom:26%}
+.tm-hero-copy{translate:0 calc(var(--hp,0) * -70px)}
+@media (max-width:700px){
+  .tm-orb.o1{width:84px;right:6%;top:9%}.tm-orb.o2{width:34px;right:30%;top:7%}.tm-orb.o3{width:52px;right:24%;top:24%;bottom:auto}.tm-orb.o4{display:none}
+}
+/* 2. «Πότε»: signs light up in order; counter and bar beside them (desktop, where the intro stays in view) */
+.tm-progress{display:none}
+@media (min-width:1024px){
+  .tm-progress{display:flex;align-items:center;gap:18px;margin-top:30px}
+  .tm-count{font-family:Comfortaa,system-ui,sans-serif;color:#58595B;white-space:nowrap}
+  .tm-count b{font-size:44px;font-weight:700;letter-spacing:-.04em;color:var(--accent);font-variant-numeric:tabular-nums}
+  .tm-count i{font-style:normal;font-size:17px;margin-left:8px;opacity:.8}
+  .tm-bar{flex:1;height:3px;border-radius:3px;background:rgba(88,89,91,.16);overflow:hidden;max-width:220px}
+  .tm-bar em{display:block;height:100%;background:var(--accent);transform:scaleX(.1);transform-origin:left;transition:transform .5s var(--ease)}
+  .tm-on .tm-steps>li{opacity:.5;transition:opacity .45s var(--ease)}
+  .tm-on .tm-steps>li:is(.is-on,.is-past){opacity:1}
+}
+.tm-steps>li>span{transition:color .35s}
+.tm-steps>li:is(.is-on,.is-past)>span{color:var(--accent);font-weight:700}
+.tm-steps>li{position:relative}
+.tm-steps>li::before{content:"";position:absolute;left:0;top:-1px;height:2px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
+.tm-steps>li.is-on::before{transform:scaleX(1)}
+/* 3. domains: the row being read */
+.tm-row :is(.specialty-number,.speech-area-number){transition:color .4s}
+.tm-row.is-on :is(.specialty-number,.speech-area-number){color:var(--accent)}   /* colour only: the numbers never move, the columns stay straight */
+/* 4a. dark section photo in layers: colour frame behind, two balls in front, each at its own speed */
+.tm-layered{position:relative}
+.tm-layered .tm-frame{position:absolute;inset:16px -16px -16px 16px;border:2px solid var(--accent);border-radius:var(--r-leaf);z-index:-1;translate:calc(var(--tp,0) * -12px) calc(var(--tp,0) * -22px)}
+.tm-dot{position:absolute;z-index:3;border-radius:50%;background:radial-gradient(circle at 34% 28%,rgba(255,255,255,.5),rgba(255,255,255,0) 52%),var(--c);box-shadow:0 16px 30px -14px rgba(0,0,0,.5);pointer-events:none}
+.tm-dot.d1{width:58px;height:58px;right:-20px;top:16%;translate:0 calc(var(--tp,0) * -60px)}
+.tm-dot.d2{width:28px;height:28px;left:-12px;bottom:18%;translate:0 calc(var(--tp,0) * 44px)}
+@media (max-width:700px){.tm-layered .tm-frame{inset:10px -10px -10px 10px}.tm-dot.d1{width:42px;height:42px;right:-6px}.tm-dot.d2{left:-4px}}
+/* 4b. step rules draw in, one after the other */
+.tm-rules>*{position:relative}
+.tm-rules>*::before{content:"";position:absolute;left:0;right:0;top:-1px;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .9s var(--ease);transition-delay:calc(var(--k,0) * .18s)}
+.tm-rules.tm-in>*::before{transform:scaleX(1)}
+.specialty-refined .specialty-process-list li:first-child::before{display:none}
+.specialty-refined .specialty-process-layout:not(:has(.specialty-photo)) .specialty-process-list li:first-child::before{display:block}
+/* 5. titles rise word by word */
+.tm-words .tm-w{display:inline-block;opacity:0;transform:translateY(.5em);transition:opacity .5s var(--ease),transform .7s var(--ease);transition-delay:calc(var(--w) * 45ms)}
+.tm-words.tm-show .tm-w{opacity:1;transform:none}
+@media (prefers-reduced-motion:no-preference){
+  @keyframes tmPop{from{transform:scale(0)}to{transform:scale(1)}}
+  @keyframes tmFloat{from{transform:translate(0,0)}to{transform:translate(4px,-10px)}}
+  .tm-orb b{animation:tmPop .9s cubic-bezier(.3,1.5,.5,1) both,tmFloat 6s ease-in-out infinite alternate;animation-delay:calc(.35s + var(--n) * .12s),calc(1.4s + var(--n) * .7s)}
+}
+@media (prefers-reduced-motion:reduce){.tm-orb,.tm-hero-copy,.tm-frame,.tm-dot{translate:none}}
+
+/* ---- 18. Alignment: the intro line of «Τομείς» sits on the same column as the descriptions below it (was 4px off: two different grids) ---- */
+@media (min-width:1001px){
+  .specialty-focus-heading{grid-template-columns:65px minmax(0,1fr) minmax(0,1.1fr);column-gap:32px}
+  .specialty-focus-heading h2{grid-column:1/3}
+  .specialty-focus-heading p{grid-column:3;max-width:none}
+  .speech-areas-heading{grid-template-columns:65px minmax(0,1fr) minmax(0,1.1fr);column-gap:32px}
+  .speech-areas-heading h2{grid-column:1/3}
+  .speech-areas-heading p:not(.speech-eyebrow){grid-column:3;max-width:none}
+}
