@@ -47,7 +47,7 @@ PAGES = {
  'privacy.html':               ('Πολιτική απορρήτου | ΣΥΝΟΙΔΑ',
                                 'Πώς η ΣΥΝΟΙΔΑ συλλέγει, φυλάσσει και προστατεύει τα προσωπικά δεδομένα των παιδιών και των οικογενειών, και ποια είναι τα δικαιώματά σας.', 'privacy'),
  '404.html':                   ('Η σελίδα δεν βρέθηκε - Σύνοιδα',
-                                'Η σελίδα που ζητήσατε δεν βρέθηκε. Επιστρέψτε στην αρχική σελίδα της ΣΥΝΟΙΔΑ ή δείτε τις θεραπείες μας.', 'home'),
+                                'Η σελίδα που ζητήσατε δεν βρέθηκε. Επιστρέψτε στην αρχική σελίδα της ΣΥΝΟΙΔΑ ή δείτε τις θεραπείες μας.', 'notfound'),
 }
 
 built, missing = [], []
@@ -74,8 +74,10 @@ for outfile, (title, desc, page) in PAGES.items():
     if outfile == 'contact-us.html':
         out = out.replace('</body>', '  <script src="assets/contact.js" defer></script>\n</body>', 1)
         # the shared top bar now offers all four centres on every page; no page-specific swap needed
+        # on this page the call bar's second button would point to itself: offer email instead
+        out = out.replace('<a href="contact-us.html" class="callbar-contact">Επικοινωνία</a>', '<a href="mailto:info@synoida.gr" class="callbar-contact">Email</a>', 1)
     # Content versions keep iterative previews fresh without changing images.
-    for asset in ('preview.css', 'polish.css', 'stars-mark.js', 'contact.js'):
+    for asset in ('preview.css', 'polish.css', 'system.css', 'stars-mark.js', 'contact.js'):
         with open(os.path.join(ROOT, 'assets', asset), 'rb') as asset_file:
             version = hashlib.sha256(asset_file.read()).hexdigest()[:12]
         out = out.replace('"assets/%s"' % asset, '"assets/%s?v=%s"' % (asset, version))
@@ -100,7 +102,7 @@ for outfile, (title, desc, page) in PAGES.items():
     out = out.replace('src="assets/hero-room-fg.webp" alt=""', 'src="assets/hero-room-fg.webp" srcset="assets/hero-room-fg-1920.webp 1920w, assets/hero-room-fg-2880.webp 2880w" sizes="100vw" alt=""', 1)
     if '--final' in sys.argv:
         out = out.replace('  <!-- demo deployment: εκτός ευρετηρίασης -->\n  <meta name="robots" content="noindex, nofollow" />\n', '')
-        out = re.sub(r'<link rel="stylesheet" href="assets/preview\.css[^"]*" />\s*<link rel="stylesheet" href="assets/polish\.css[^"]*" />', '<link rel="stylesheet" href="assets/bundle.min.css" />', out)
+        out = re.sub(r'<link rel="stylesheet" href="assets/preview\.css[^"]*" />\s*<link rel="stylesheet" href="assets/polish\.css[^"]*" />\s*<link rel="stylesheet" href="assets/system\.css[^"]*" />', '<link rel="stylesheet" href="assets/bundle.min.css" />', out)
     leftover = sorted(set(re.findall(r'\{\{[A-Z_]+\}\}', out)))
     if leftover:
         sys.exit('Unresolved placeholders in %s: %s' % (outfile, ', '.join(leftover)))
@@ -123,7 +125,7 @@ if '--final' in sys.argv:
         css = re.sub(r'\s+', ' ', css)
         css = re.sub(r'\s*([{};:,>])\s*', r'\1', css)
         return css.replace(';}', '}').strip()
-    bundle = _minify(open(os.path.join(ROOT, 'assets', 'preview.css'), encoding='utf-8').read() + '\n' + open(os.path.join(ROOT, 'assets', 'polish.css'), encoding='utf-8').read())
+    bundle = _minify(open(os.path.join(ROOT, 'assets', 'preview.css'), encoding='utf-8').read() + '\n' + open(os.path.join(ROOT, 'assets', 'polish.css'), encoding='utf-8').read() + '\n' + open(os.path.join(ROOT, 'assets', 'system.css'), encoding='utf-8').read())
     open(os.path.join(ROOT, 'assets', 'bundle.min.css'), 'w', encoding='utf-8').write(bundle)
     open(os.path.join(ROOT, 'robots.txt'), 'w', encoding='utf-8').write('User-agent: *\nAllow: /\nSitemap: %ssitemap.xml\n' % BASE_URL)
     print('FINAL: bundle.min.css %d KB, robots allow, noindex removed' % (len(bundle.encode()) // 1024))
