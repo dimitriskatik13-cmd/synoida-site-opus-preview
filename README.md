@@ -1,6 +1,6 @@
-# ΣΥΝΟΙΔΑ · Δοκιμαστικό site, έκδοση Fable 5.1
+# ΣΥΝΟΙΔΑ · Δοκιμαστικό site, έκδοση Opus 5.5
 
-Ανεξάρτητο αντίγραφο του `synoida-site-preview` που δουλεύει το Claude Fable 5.1. Δημοσιεύεται στο https://dimitriskatik13-cmd.github.io/synoida-site-fable-preview/ και παραμένει εκτός ευρετηρίασης (`noindex`). Δεν αλλάζει ούτε το `synoida-site` ούτε το `synoida-site-preview`. Κατάσταση και ιστορικό αλλαγών: `STATE.md` στον γονικό φάκελο του AIOS.
+Ανεξάρτητο αντίγραφο που δουλεύει το Claude Opus 5.5. Βάση: η έκδοση Fable 5.1 (`synoida-site-fable-preview`, commit `0b970fe`), με όλο το ιστορικό της. Δημοσιεύεται στο https://dimitriskatik13-cmd.github.io/synoida-site-opus-preview/ και παραμένει εκτός ευρετηρίασης (`noindex`). Δεν αλλάζει ούτε το `synoida-site`, ούτε το `synoida-site-preview`, ούτε το `synoida-site-fable-preview`. Κατάσταση και ιστορικό αλλαγών: `STATE.md` στον γονικό φάκελο του AIOS.
 
 ---
 
