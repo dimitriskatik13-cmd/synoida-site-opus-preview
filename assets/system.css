@@ -215,7 +215,7 @@ main .depth-clip,main .mosaic,.speech-photo .depth-clip,.specialty-photo .depth-
   .home-services .svc-rail::-webkit-scrollbar{display:none}
   .home-services .svc-rail>a{flex:0 0 84%;scroll-snap-align:center}
   .home-services .svc-body{padding:2.6rem 1.25rem 1.4rem}
-  .home-services .svc-body>p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .home-services .svc-body>p{display:block}
   .home-refined .svc-card .svc-body h3{font-size:20px}
   /* centres (homepage and contact): small photo, name, address, call button */
   .home-refined .location-photos>.preview-centre,.contact-refined .location-photos>.contact-centre{grid-template-columns:92px minmax(0,1fr);grid-template-areas:"photo place" "photo address" "phone action";gap:4px 16px;padding-block:22px}
