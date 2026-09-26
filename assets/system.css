@@ -357,3 +357,8 @@ main.assessment-refined .assessment-faq ul.assessment-tools li{position:relative
 main.assessment-refined .assessment-faq ul.assessment-tools li::before{content:"";position:absolute;left:2px;top:.72em;width:7px;height:7px;border-radius:50%;background:#8DC63F}
 main.assessment-refined .assessment-faq ul.assessment-tools b{font-weight:650}
 @media (max-width:700px){main.assessment-refined .assessment-faq ul.assessment-tools{padding-right:0}main.assessment-refined .assessment-faq ul.assessment-tools li{font-size:14px}}
+
+/* ---- About history, 26/09/2026: the timeline shows 2010 and 2018 only (1998 lives in the big year above) ---- */
+@media (min-width:701px){main .about-timeline .tl-items{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* team intro: a few words in the section's green, like the heading */
+main .about-team-intro p .about-accent{color:#8DC63F}
