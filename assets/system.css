@@ -361,7 +361,7 @@ main.assessment-refined .assessment-faq ul.assessment-tools b{font-weight:650}
 /* team intro: a few words in the section's green, like the heading */
 main .about-team-intro p .about-accent{color:#8DC63F}
 /* home «Σας προβληματίζει κάτι…»: key phrases in the light green used on dark sections */
-main .home-question .home-accent{font-style:normal;color:#c5e69a}
+main .home-question .home-accent{font-style:normal;color:#8DC63F}
 
 /* ---- Αξιολόγηση «Η διαδικασία, βήμα βήμα», 29/09/2026: dark grey like the other dark sections, steps light up one by one ---- */
 main.assessment-refined .assessment-process{background:#58595B;color:#fff}
