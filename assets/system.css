@@ -360,3 +360,21 @@ main.assessment-refined .assessment-faq ul.assessment-tools b{font-weight:650}
 
 /* team intro: a few words in the section's green, like the heading */
 main .about-team-intro p .about-accent{color:#8DC63F}
+/* home «Σας προβληματίζει κάτι…»: key phrases in the light green used on dark sections */
+main .home-question .home-accent{font-style:normal;color:#c5e69a}
+
+/* ---- Αξιολόγηση «Η διαδικασία, βήμα βήμα», 29/09/2026: dark grey like the other dark sections, steps light up one by one ---- */
+main.assessment-refined .assessment-process{background:#58595B;color:#fff}
+main.assessment-refined .assessment-process h2,main.assessment-refined .assessment-process h3,main.assessment-refined .assessment-process p{color:#fff}
+main.assessment-refined .assessment-process .assessment-section-heading p{color:rgba(255,255,255,.85)}
+main.assessment-refined .assessment-steps li{border-top-color:rgba(255,255,255,.22);position:relative;transition:opacity .45s var(--ease)}
+main.assessment-refined .assessment-steps li:first-child{border-top-color:rgba(255,255,255,.22)}
+main.assessment-refined .assessment-steps li::before{content:"";position:absolute;left:0;top:-1px;height:2px;width:100%;background:#8DC63F;transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
+main.assessment-refined .assessment-step-number{color:rgba(255,255,255,.7);transition:color .35s}
+main.assessment-refined .assessment-steps li p{color:rgba(255,255,255,.88)}
+/* with the script: the step being read is bright and green, the ones below wait dimmer */
+main.assessment-refined.as-on .assessment-steps li{opacity:.45}
+main.assessment-refined.as-on .assessment-steps li:is(.is-on,.is-past){opacity:1}
+main.assessment-refined .assessment-steps li:is(.is-on,.is-past) .assessment-step-number{color:#8DC63F;font-weight:700}
+main.assessment-refined .assessment-steps li.is-on::before{transform:scaleX(1)}
+@media (prefers-reduced-motion:reduce){main.assessment-refined.as-on .assessment-steps li{opacity:1}}

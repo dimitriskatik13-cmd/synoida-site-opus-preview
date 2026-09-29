@@ -72,13 +72,16 @@ for outfile, (title, desc, page) in PAGES.items():
     if outfile.startswith('treatment-'):
         # depth and guidance on the therapy pages (layered hero, «Πότε» sequence, layered photos, word reveals)
         out = out.replace('</body>', '  <script src="assets/therapy-motion.js" defer></script>\n</body>', 1)
+    if outfile == 'rating.html':
+        # the four steps of the process light up one by one, like the signs on the therapy pages
+        out = out.replace('</body>', '  <script src="assets/assessment-motion.js" defer></script>\n</body>', 1)
     if outfile == 'contact-us.html':
         out = out.replace('</body>', '  <script src="assets/contact.js" defer></script>\n</body>', 1)
         # the shared top bar now offers all four centres on every page; no page-specific swap needed
         # on this page the call bar's second button would point to itself: offer email instead
         out = out.replace('<a href="contact-us.html" class="callbar-contact">Επικοινωνία</a>', '<a href="mailto:info@synoida.gr" class="callbar-contact">Email</a>', 1)
     # Content versions keep iterative previews fresh without changing images.
-    for asset in ('preview.css', 'polish.css', 'system.css', 'stars-mark.js', 'contact.js', 'therapy-motion.js'):
+    for asset in ('preview.css', 'polish.css', 'system.css', 'stars-mark.js', 'contact.js', 'therapy-motion.js', 'assessment-motion.js'):
         with open(os.path.join(ROOT, 'assets', asset), 'rb') as asset_file:
             version = hashlib.sha256(asset_file.read()).hexdigest()[:12]
         out = out.replace('"assets/%s"' % asset, '"assets/%s?v=%s"' % (asset, version))
