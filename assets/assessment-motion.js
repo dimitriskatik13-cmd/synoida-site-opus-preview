@@ -10,13 +10,24 @@
   if (items.length < 2) return;
   main.classList.add('as-on');
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var current = -1;
-  function setActive(idx) {
-    if (idx === current) return;
-    current = idx;
+  var current = -1, target = -1, walking = false;
+  function paint(idx) {
     items.forEach(function (li, i) { li.classList.toggle('is-on', i === idx); li.classList.toggle('is-past', i < idx); });
   }
-  if (reduce) { setActive(items.length - 1); return; }
+  /* move one step per frame towards the target, so every step lights up in order even after a jump */
+  function walk() {
+    walking = false;
+    if (current === target) return;
+    current += current < target ? 1 : -1;
+    paint(current);
+    if (current !== target) { walking = true; requestAnimationFrame(walk); }
+  }
+  function setActive(idx) {
+    target = idx;
+    if (current === -1) { current = idx; paint(idx); return; }
+    if (!walking) walk();
+  }
+  if (reduce) { current = items.length - 1; paint(current); return; }
   var ticking = false;
   function frame() {
     ticking = false;

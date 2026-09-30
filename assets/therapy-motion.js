@@ -28,7 +28,7 @@
 
   /* ---- 2. «Πότε» as a sequence ---- */
   var steps = main.querySelector('.specialty-signs-list, .speech-observations');
-  var counter = null, bar = null, total = 0;
+  var counter = null, bar = null, total = 0, signsFrame = null;
   if (steps) {
     var items = Array.prototype.slice.call(steps.children);
     total = items.length;
@@ -42,15 +42,38 @@
       var cta = intro.querySelector('.signs-cta');
       intro.insertBefore(prog, cta || null);
     }
-    var setActive = function (idx) {
+    var currentSign = -1, targetSign = -1, walking = false;
+    var paintSign = function (idx) {
       items.forEach(function (li, i) { li.classList.toggle('is-on', i === idx); li.classList.toggle('is-past', i < idx); });
       if (counter) counter.firstChild.textContent = String(idx + 1).padStart(2, '0');
       if (bar) bar.firstChild.style.transform = 'scaleX(' + ((idx + 1) / total).toFixed(3) + ')';
     };
-    var sio = new IntersectionObserver(function (en) {
-      en.forEach(function (e) { if (e.isIntersecting) setActive(items.indexOf(e.target)); });
-    }, { rootMargin: '-42% 0px -42% 0px' });
-    items.forEach(function (li) { sio.observe(li); });
+    /* one sign per frame towards the target, so every sign lights up in order even after a jump */
+    var walkSign = function () {
+      walking = false;
+      if (currentSign === targetSign) return;
+      currentSign += currentSign < targetSign ? 1 : -1;
+      paintSign(currentSign);
+      if (currentSign !== targetSign) { walking = true; requestAnimationFrame(walkSign); }
+    };
+    var setActive = function (idx) {
+      targetSign = idx;
+      if (currentSign === -1) { currentSign = idx; paintSign(idx); return; }
+      if (!walking) walkSign();
+    };
+    /* the active sign is the one closest to the middle of the screen, checked on every scroll frame,
+       so a fast fling never skips one (an intersection band could, especially in Safari) */
+    signsFrame = function () {
+      var mid = window.innerHeight / 2, box = steps.getBoundingClientRect();
+      if (box.bottom < 0 || box.top > window.innerHeight) return;
+      var best = -1, bestDist = Infinity;
+      items.forEach(function (li, i) {
+        var r = li.getBoundingClientRect();
+        var d = (r.top <= mid && r.bottom >= mid) ? 0 : Math.min(Math.abs(r.top - mid), Math.abs(r.bottom - mid));
+        if (d < bestDist) { bestDist = d; best = i; }
+      });
+      if (best >= 0) setActive(best);
+    };
     if (reduce) setActive(total - 1);
   }
 
@@ -102,6 +125,7 @@
   var ticking = false;
   function frame() {
     ticking = false;
+    if (signsFrame) signsFrame();
     var vh = window.innerHeight;
     if (hero) {
       var r = hero.getBoundingClientRect();
